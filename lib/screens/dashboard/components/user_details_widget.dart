@@ -1,6 +1,5 @@
 import 'package:smart_admin_dashboard/core/constants/color_constants.dart';
 import 'package:smart_admin_dashboard/screens/dashboard/components/calendart_widget.dart';
-import 'package:smart_admin_dashboard/screens/dashboard/components/charts.dart';
 import 'package:smart_admin_dashboard/screens/dashboard/components/user_details_mini_card.dart';
 import 'package:flutter/material.dart';
 
@@ -29,7 +28,7 @@ class UserDetailsWidget extends StatelessWidget {
             ),
           ),
           SizedBox(height: defaultPadding),
-          Chart(),
+          
           UserDetailsMiniCard(
             color: Color(0xff0293ee),
             title: "Technical Interview",
