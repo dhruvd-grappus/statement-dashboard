@@ -46,9 +46,9 @@ class Transaction extends Equatable {
     return Transaction(
       date: (map['date'] ?? '') as String,
       remarks: (map['remarks'] ?? '') as String,
-      withdrawalAmount: (map['withdrawalAmount'] ?? 0.0) as double,
-      depositAmount: (map['depositAmount'] ?? 0.0) as double,
-      balanceAfter: (map['balanceAfter'] ?? 0.0) as double,
+      withdrawalAmount: (map['withdrawalAmount'] ?? 0.0).toDouble(),
+      depositAmount: (map['depositAmount'] ?? 0.0).toDouble(),
+      balanceAfter: (map['balanceAfter'] ?? 0.0).toDouble(),
     );
   }
 

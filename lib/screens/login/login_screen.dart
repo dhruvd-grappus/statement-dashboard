@@ -188,7 +188,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               hintText: "Enter Password",
               onSaved: (String? uPassword) {},
               onChanged: (String? value) {},
-              validator: (String? value) {},
+              validator: (String? value) {
+                return null;
+              },
             ),
             SizedBox(height: 24.0),
             AppButton(
@@ -296,7 +298,9 @@ class _LoginState extends State<Login> with SingleTickerProviderStateMixin {
               hintText: "Enter Password",
               onSaved: (String? uPassword) {},
               onChanged: (String? value) {},
-              validator: (String? value) {},
+              validator: (String? value) {
+                return null;
+              },
             ),
             SizedBox(height: 24.0),
             AppButton(

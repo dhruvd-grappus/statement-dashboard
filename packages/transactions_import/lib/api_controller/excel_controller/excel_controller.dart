@@ -1,16 +1,16 @@
 import 'dart:io';
-import 'package:flutter/material.dart';
-import 'package:path/path.dart';
+
 import 'package:excel/excel.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 
 class ExcelController {
   Future<List<Map<String, dynamic>>> getExcelCells(
-      String filePath, bool isAsset) async {
-    var bytes = File(filePath).readAsBytesSync();
-    var excel = isAsset
-        ? await _getExcelBytesForAssetFile(filePath)
-        : Excel.decodeBytes(bytes);
+      {dynamic file, String? filePath}) async {
+    assert(file != null || filePath != null);
+    
+    var excel = filePath!=null
+        ? await _getExcelBytesForAssetFile(filePath!)
+        : Excel.decodeBytes(file?.bytes ?? File(filePath!).readAsBytesSync());
 
     if (excel.tables.keys.isEmpty) {
       return [];
@@ -26,18 +26,18 @@ class ExcelController {
         (element) =>
             element.any((data) => columnNames.keys.contains(data?.value)));
 
-    for (var row
-        in excel.tables[excel.tables.keys.first]!.rows.sublist(startRowIndex+1)) {
+    for (var row in excel.tables[excel.tables.keys.first]!.rows
+        .sublist(startRowIndex + 1)) {
       Map<String, dynamic> transaction = {};
       var dataRow = row;
       dataRow.remove(null);
-      dataRow.forEach((data) {
+      for (var data in dataRow) {
         if (data != null) {
           if (columns.containsKey(data.colIndex)) {
             transaction[columns[data.colIndex]] = data.value;
           }
         }
-      });
+      }
       transactions.add(transaction);
     }
     return transactions;

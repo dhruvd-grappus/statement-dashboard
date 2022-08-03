@@ -24,7 +24,7 @@ class _SliderWidgetState extends State<SliderWidget> {
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       timer = Timer.periodic(Duration(seconds: 5), (time) {
         if (currentIndex < totalIndex!) {
           controller.animateTo(currentIndex * (screenWidth!),

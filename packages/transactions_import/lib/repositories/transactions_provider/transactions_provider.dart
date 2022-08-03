@@ -12,11 +12,14 @@ enum Status {
 class TransactionsProvider extends ChangeNotifier {
   List<Transaction> transactions = [];
   Status status = Status.initial;
-  Future<List<Transaction>> getTransactions(String path) async {
+  TransactionsProvider() {
+    getTransactions(path: 'assets/test_excel.xlsx');
+  }
+  Future<List<Transaction>> getTransactions({String? path,dynamic file}) async {
     status = Status.loading;
     notifyListeners();
     List<Map<String, dynamic>> data =
-        await ExcelController().getExcelCells(path, true);
+        await ExcelController().getExcelCells(filePath: path,file: file);
 
     var list = data.map((e) => Transaction.fromMap(e)).toList();
     transactions = list;
