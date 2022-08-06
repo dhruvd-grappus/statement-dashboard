@@ -1,3 +1,7 @@
+
+
+import 'dart:developer';
+
 import 'package:provider/provider.dart';
 import 'package:smart_admin_dashboard/core/constants/color_constants.dart';
 import 'package:smart_admin_dashboard/core/utils/colorful_tag.dart';
@@ -22,9 +26,10 @@ class Transactions extends StatelessWidget {
       ),
       child: Consumer<TransactionsProvider>(
         builder: (context, transactions, _) {
+          log(transactions.transactions.length.toString());
           return SizedBox(
             width: double.infinity,
-            child: DataTable(
+            child:transactions.transactions.isNotEmpty? DataTable(
             
               horizontalMargin: 0,
               columnSpacing: defaultPadding,
@@ -44,11 +49,11 @@ class Transactions extends StatelessWidget {
                 ),
               ],
               rows: List.generate(
-                20,
+               transactions.transactions.length,
                 (index) => recentUserDataRow(
                     transactions.transactions[index], context),
               ),
-            ),
+            ):SizedBox(),
           );
         },
       ),

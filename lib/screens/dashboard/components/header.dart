@@ -1,7 +1,11 @@
+import 'package:provider/provider.dart';
 import 'package:smart_admin_dashboard/core/constants/color_constants.dart';
+import 'package:smart_admin_dashboard/core/widgets/app_button_widget.dart';
+import 'package:smart_admin_dashboard/providers/file_picker_provider.dart';
 import 'package:smart_admin_dashboard/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:transactions_import/repositories/transactions_provider/transactions_provider.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -37,6 +41,26 @@ class Header extends StatelessWidget {
           ),
         if (!Responsive.isMobile(context))
           Spacer(flex: Responsive.isDesktop(context) ? 2 : 1),
+        InkWell(
+          onTap: () {
+            FilePickerProvider.pickFile().then((value) {
+              if (value != null) {
+                 Provider.of<TransactionsProvider>(context, listen: false)
+                    .getTransactions(file: value);
+              }
+              
+            });
+          },
+          child: Container(
+              decoration: BoxDecoration(
+                color: getButtonColor(context, ButtonType.PRIMARY),
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: Text('Upload ')),
+        ),
+        SizedBox(
+          width: 20,
+        ),
         Expanded(child: SearchField()),
         ProfileCard()
       ],

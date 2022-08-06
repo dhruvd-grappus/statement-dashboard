@@ -3,19 +3,18 @@ import 'package:flutter/material.dart';
 enum ButtonType { PRIMARY, PLAIN }
 
 class AppButton extends StatelessWidget {
-  final ButtonType? type;
+  final ButtonType type;
   final VoidCallback? onPressed;
   final String? text;
 
-  AppButton({this.type, this.onPressed, this.text});
+  AppButton({ required this.type, this.onPressed, this.text});
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: this.onPressed,
       child: Container(
-        width: double.infinity,
-        height: 45,
+  
         decoration: BoxDecoration(
           color: getButtonColor(context, type!),
           borderRadius: BorderRadius.circular(4.0),

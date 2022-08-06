@@ -7,9 +7,9 @@ class ExcelController {
   Future<List<Map<String, dynamic>>> getExcelCells(
       {dynamic file, String? filePath}) async {
     assert(file != null || filePath != null);
-    
-    var excel = filePath!=null
-        ? await _getExcelBytesForAssetFile(filePath!)
+
+    var excel = filePath != null
+        ? await _getExcelBytesForAssetFile(filePath)
         : Excel.decodeBytes(file?.bytes ?? File(filePath!).readAsBytesSync());
 
     if (excel.tables.keys.isEmpty) {
@@ -20,13 +20,14 @@ class ExcelController {
     }
     List<Map<String, dynamic>> transactions = [];
     final columns = getTransactionColumnNumbers(
-      excel.tables[excel.tables.keys.first]!.rows.sublist(0, 21),
+      excel.tables[excel.tables.keys.first]!.rows,
     );
     int startRowIndex = excel.tables[excel.tables.keys.first]!.rows.indexWhere(
         (element) =>
             element.any((data) => columnNames.keys.contains(data?.value)));
-
-    for (var row in excel.tables[excel.tables.keys.first]!.rows
+    assert(startRowIndex != -1);
+    var rows2 = excel.tables[excel.tables.keys.first]!.rows;
+    for (var row in rows2
         .sublist(startRowIndex + 1)) {
       Map<String, dynamic> transaction = {};
       var dataRow = row;
